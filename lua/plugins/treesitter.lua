@@ -19,6 +19,7 @@ return {
 					"markdown",
 					"yaml",
 					"python",
+					"go",
 				},
 				sync_install = false,
 				highlight = {

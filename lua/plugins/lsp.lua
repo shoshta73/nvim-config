@@ -80,16 +80,27 @@ return {
 				marksman = {},
 				pyright = {},
 				yamlls = {},
+				gopls = {},
+				docker_compose_language_service = {},
+				dockerls = {},
+				ast_grep = {},
+				clangd = {},
 			}
 
 			local formatters = {
 				prettierd = {},
 				stylua = {},
+				goimports = {},
+				yapf = {},
+			}
+
+			local linters = {
+				mypy = {},
 			}
 
 			local manually_installed_servers = {}
 
-			local mason_tools_to_install = vim.tbl_keys(vim.tbl_deep_extend("force", {}, servers, formatters))
+			local mason_tools_to_install = vim.tbl_keys(vim.tbl_deep_extend("force", {}, servers, formatters, linters))
 
 			local ensure_installed = vim.tbl_filter(function(name)
 				return not vim.tbl_contains(manually_installed_servers, name)
@@ -101,6 +112,10 @@ return {
 				start_delay = 3000,
 				debounce_hours = 12,
 				ensure_installed = ensure_installed,
+			})
+
+			require("mason-tool-installer").setup({
+				"clang-format",
 			})
 
 			-- Iterate over our servers and set them up
